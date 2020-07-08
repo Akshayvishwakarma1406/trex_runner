@@ -68,8 +68,8 @@ function draw() {
   if (gameState === PLAY) {
     score = score + Math.round(getFrameRate() / 60);
 
-    if (keyDown("space") && trex.y >160) {
-      trex.velocityY = -12;
+    if (keyDown("space") && trex.y > 150) {
+      trex.velocityY = -13;
     }
 
     trex.velocityY = trex.velocityY + 0.8;
@@ -109,7 +109,11 @@ function draw() {
 
   text("Score: " + score, 500, 50);
   trex.collide(invisibleGround);
+  // trex.debug = true; 
   console.log(trex.y);
+  trex.setCollider("circle", 0, 0, 50);
+
+  // console.log(trex);
 
   drawSprites();
 }
@@ -169,22 +173,25 @@ function spawnObstacles() {
     //assign scale and lifetime to the obstacle           
     obstacle.scale = 0.5;
     obstacle.lifetime = 300;
+    // obstacle.debug = true;
+    obstacle.setCollider("circle", 0, 0, 40);
+
     //add each obstacle to the group
     obstaclesGroup.add(obstacle);
   }
 }
 
-function reset(){
+function reset() {
   gameState = PLAY;
-  
+
   gameOver.visible = false;
   restart.visible = false;
-  
+
   obstaclesGroup.destroyEach();
   cloudsGroup.destroyEach();
-  
-  trex.changeAnimation("running",trex_running);
-  
+
+  trex.changeAnimation("running", trex_running);
+
   score = 0;
-  
+
 }
